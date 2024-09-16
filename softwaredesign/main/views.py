@@ -2,6 +2,8 @@ from django.shortcuts import render
 from dotenv import load_dotenv
 import os
 
+from authentication.models import AI
+
 # .env 파일의 경로를 명시적으로 지정
 load_dotenv(dotenv_path='C:/Users/my/Desktop/SoftwareDesign/.env')
 
@@ -11,6 +13,8 @@ api_key = os.getenv('API_KEY')
 
 # Create your views here.
 def index(request):
-    return render(request, "index.html")
+    
+    ai_objects = AI.objects.all()
+    return render(request, "index.html",{'ai_objects': ai_objects})
 
 

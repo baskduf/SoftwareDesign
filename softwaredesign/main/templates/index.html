@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- static 태그 로드 -->
+  {% load static %}
   <title>friendAI</title>
   <style>.wf-force-outline-none[tabindex="-1"]:focus{outline:none;}</style>
   <link href="https://cdn.prod.website-files.com/66e51a8bf5d1242ba172c682/css/friendai.webflow.648a10625.css" rel="stylesheet" type="text/css">
@@ -55,76 +57,32 @@
       <p class="centered-subheading">Select your AI</p>
       <div class="team-slider-wrapper w-slider">
         <div class="w-slider-mask" id="w-slider-mask-0">
-          <div class="team-slide-wrapper w-slide">
-            <div class="team-block">
-              <img src="/static/img/1.jfif" alt="AI.1">
-              <div class="team-block-info">
-                <h3 class="team-member-name-two">AI.1</h3>
-                <p class="team-member-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <a href="#" class="text-link-arrow w-inline-block">
+          <!-- 전체 슬라이드 래퍼 -->
+          
+      <!-- AI 객체 반복 시작 -->
+      {% for ai in ai_objects %}
+      <div class="team-slide-wrapper w-slide">
+        <div class="team-block">
+          <!-- 이미지 경로를 동적으로 설정 -->
+          <img src="{% static 'img/' %}{{ ai.ainame }}.jfif" alt="{{ ai.ainame }}">
+          <div class="team-block-info">
+              <h3 class="team-member-name-two">{{ ai.ainame }}</h3>
+              <p class="team-member-text">{{ ai.prompt }}</p>
+              <a href="#" class="text-link-arrow w-inline-block">
                   <div>How we can help you</div>
                   <div class="arrow-embed w-embed">
-                    <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" clip-rule="evenodd" d="M11.72 15L16.3472 10.357C16.7732 9.92932 16.7732 9.23603 16.3472 8.80962L11.72 4.16667L10.1776 5.71508L12.9425 8.4889H4.16669V10.6774H12.9425L10.1776 13.4522L11.72 15Z" fill="currentColor"></path>
-                    </svg>
+                      <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M11.72 15L16.3472 10.357C16.7732 9.92932 16.7732 9.23603 16.3472 8.80962L11.72 4.16667L10.1776 5.71508L12.9425 8.4889H4.16669V10.6774H12.9425L10.1776 13.4522L11.72 15Z" fill="currentColor"></path>
+                      </svg>
                   </div>
-                </a>
-              </div>
-            </div>
+              </a>
           </div>
-          <div class="team-slide-wrapper w-slide">
-            <div class="team-block">
-              <img src="/static/img/2.jfif" alt="AI.2">
-              <div class="team-block-info">
-                <h3 class="team-member-name-two">AI.2</h3>
-                <p class="team-member-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <a href="#" class="text-link-arrow w-inline-block">
-                  <div>How we can help you</div>
-                  <div class="arrow-embed w-embed">
-                    <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" clip-rule="evenodd" d="M11.72 15L16.3472 10.357C16.7732 9.92932 16.7732 9.23603 16.3472 8.80962L11.72 4.16667L10.1776 5.71508L12.9425 8.4889H4.16669V10.6774H12.9425L10.1776 13.4522L11.72 15Z" fill="currentColor"></path>
-                    </svg>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="team-slide-wrapper w-slide">
-            <div class="team-block">
-              <img src="/static/img/3.jfif" alt="AI.3">
-              <div class="team-block-info">
-                <h3 class="team-member-name-two">AI.3</h3>
-                <p class="team-member-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <a href="#" class="text-link-arrow w-inline-block">
-                  <div>How we can help you</div>
-                  <div class="arrow-embed w-embed">
-                    <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" clip-rule="evenodd" d="M11.72 15L16.3472 10.357C16.7732 9.92932 16.7732 9.23603 16.3472 8.80962L11.72 4.16667L10.1776 5.71508L12.9425 8.4889H4.16669V10.6774H12.9425L10.1776 13.4522L11.72 15Z" fill="currentColor"></path>
-                    </svg>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div class="team-slide-wrapper w-slide">
-            <div class="team-block">
-              <img src="/static/img/4.jfif" alt="AI.4">
-              <div class="team-block-info">
-                <h3 class="team-member-name-two">AI.4</h3>
-                <p class="team-member-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <a href="#" class="text-link-arrow w-inline-block">
-                  <div>How we can help you</div>
-                  <div class="arrow-embed w-embed">
-                    <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path fill-rule="evenodd" clip-rule="evenodd" d="M11.72 15L16.3472 10.357C16.7732 9.92932 16.7732 9.23603 16.3472 8.80962L11.72 4.16667L10.1776 5.71508L12.9425 8.4889H4.16669V10.6774H12.9425L10.1776 13.4522L11.72 15Z" fill="currentColor"></path>
-                    </svg>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-          <!-- Add other slides here -->
+      </div>
         </div>
+      {% endfor %}
+      <!-- AI 객체 반복 종료 -->
+          <!-- Add other slides here -->
+      </div>
         <div class="team-slider-arrow w-slider-arrow-left" role="button" tabindex="0" aria-label="previous slide">
           <div class="w-icon-slider-left"></div>
         </div>
