@@ -1,0 +1,182 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f4f4f9;
+  color: #333;
+  font-family: 'Arial', sans-serif;
+  font-weight: 600; /* 기본 글씨체를 볼드하게 설정 */
+}
+
+header {
+  text-align: center;
+  padding: 20px;
+  background-color: #333;
+  color: white;
+}
+
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-item {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
+  padding: 10px;
+}
+
+.nav-item:hover {
+  text-decoration: underline;
+}
+
+.site-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  flex-grow: 1;
+}
+
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.card {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease-in-out; /* hover 애니메이션을 부드럽게 처리 */
+}
+
+/* .card:hover: 마우스를 카드 위에 올렸을 때의 효과 */
+.card:hover {
+  transform: scale(1.05); /* 카드가 살짝 커짐 */
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: bold;
+}
+
+.ai-section {
+  text-align: center;
+  padding: 20px;
+  margin: 20px auto;
+  width: 90%;
+  max-width: 1200px;
+}
+
+h2 {
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.ai-scroll-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  gap: 20px;
+  padding-bottom: 10px;
+  scroll-padding: 10px;
+  width: calc(200px * 5 + 80px);
+}
+
+.ai-scroll-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.ai-scroll-container::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+}
+
+.ai-scroll-container::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+.ai-card {
+  position: relative;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  min-width: 200px;
+  max-width: 200px;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  transition: transform 0.2s ease-in-out;
+  overflow: hidden; /* 내부 텍스트 오버플로우 방지 */
+}
+
+.ai-card:hover {
+  transform: translateY(-10px);
+}
+
+.ai-card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.ai-description {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 10px;
+}
+
+.ai-card:hover .ai-description {
+  opacity: 1;
+}
+
+footer {
+  margin-top: auto;
+  background-color: #333;
+  color: white;
+  padding: 10px 0;
+}
+
+.bottom-nav {
+  display: flex;
+  justify-content: space-around;
+}
+
+.bottom-nav a {
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+}
+
+.bottom-nav a:hover {
+  background-color: #555;
+  border-radius: 5px;
+}
