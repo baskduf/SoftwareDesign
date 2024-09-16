@@ -9,8 +9,7 @@ class createAIForm(forms.Form):
     prompt = forms.CharField(
         widget=forms.Textarea(attrs={
             'class': 'hero-form-input w-input', 
-            'placeholder': 'Enter your prompt',
-            'rows': 4,  # 줄 수 설정 (선택 사항)
+            'placeholder': 'Enter your prompt'
         }),
         label=''
     )
