@@ -24,7 +24,7 @@ def create(request):
             ainame = form.cleaned_data['ainame']
             prompt = form.cleaned_data['prompt']
             image = form.cleaned_data.get('image')  # 선택 사항 필드
-
+            personality = form.cleaned_data['personality']
             # 이미지 파일 저장
             if image:
                 # static 디렉토리의 절대 경로를 얻습니다.
@@ -46,7 +46,7 @@ def create(request):
                     for chunk in image.chunks():
                         f.write(chunk)
                 
-                ai_instance = AI(ainame=ainame, prompt=prompt)
+                ai_instance = AI(ainame=ainame, prompt=prompt, personality=personality)
                 ai_instance.save()
 
                 print(f'Image saved to: {file_path}')

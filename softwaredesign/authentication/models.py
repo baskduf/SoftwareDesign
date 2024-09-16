@@ -16,6 +16,18 @@ class User(AbstractUser):
 class AI(models.Model):
     ainame = models.CharField(max_length=100, unique=True)
     prompt = models.TextField()
+    personality = models.CharField(
+        max_length=20,
+        choices=[
+            ('calm', '차분함'),
+            ('active', '활발함'),
+            ('tsundere', '츤데레'),
+            ('playful', '장난꾸러기'),
+            ('mysterious', '신비로움'),
+            ('intelligent', '지적인')
+        ],
+        default='calm'
+    )
 
     def __str__(self):
         return self.ainame
