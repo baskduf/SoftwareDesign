@@ -1,0 +1,11 @@
+{
+  "name": "json-server-exam",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "json-server --watch db.json"
+  },
+  "devDependencies": {
+    "json-server": "^1.0.0-beta.2"
+  }
+}
