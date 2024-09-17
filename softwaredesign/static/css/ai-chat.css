@@ -45,7 +45,7 @@
     border: 1px solid #ddd; /* 채팅 영역 테두리 (선택사항) */
     background-color: #f9f9f9; /* 채팅 배경 색상 (선택사항) */
   }
-  
+
   .msger-chat::-webkit-scrollbar {
     width: 6px;
   }
@@ -94,10 +94,13 @@
   }
   
   .left-msg .msg-bubble {
+    text-align: left;
     border-bottom-left-radius: 0;
   }
   
   .right-msg {
+
+    text-align: left;
     flex-direction: row-reverse;
   }
   .right-msg .msg-bubble {
