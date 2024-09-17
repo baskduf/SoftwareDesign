@@ -16,6 +16,8 @@ class User(AbstractUser):
 class AI(models.Model):
     ainame = models.CharField(max_length=100, unique=True)
     prompt = models.TextField()
+    
+    description = models.TextField(blank=True)
     personality = models.CharField(
         max_length=20,
         choices=[

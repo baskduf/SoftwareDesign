@@ -17,6 +17,14 @@ class createAIForm(forms.Form):
         }),
         label='프롬프트(생략시 기본 프롬프트 적용)'
     )
+    description = forms.CharField(
+        required=False,
+        widget=forms.Textarea(attrs={
+            'class': 'hero-form-input w-input', 
+            'placeholder': 'Enter description'
+        }),
+        label='설명(선택사항)'
+    )
     personality = forms.ChoiceField(
         choices=[
             ('calm', '차분함'),
