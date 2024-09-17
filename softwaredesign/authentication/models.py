@@ -4,35 +4,15 @@ from django.db import models
 # accounts/models.py
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from aiservice.models import AI
 
 class User(AbstractUser):
     # 새로운 필드 추가 예시
     # 사용자는 여러 개의 AI를 가질 수 있음 (ManyToMany 관계)
-    ainame = models.ManyToManyField('AI', related_name='users', blank=True)
+    ainame = models.ManyToManyField('aiservice.AI', related_name='users', blank=True)
 
     def __str__(self):
         return self.username
-    
-class AI(models.Model):
-    ainame = models.CharField(max_length=100, unique=True)
-    prompt = models.TextField()
-    
-    description = models.TextField(blank=True)
-    personality = models.CharField(
-        max_length=20,
-        choices=[
-            ('calm', '차분함'),
-            ('active', '활발함'),
-            ('tsundere', '츤데레'),
-            ('playful', '장난꾸러기'),
-            ('mysterious', '신비로움'),
-            ('intelligent', '지적인')
-        ],
-        default='calm'
-    )
-
-    def __str__(self):
-        return self.ainame
 
 #User와 AI의 관계 모델
 class UserAI(models.Model):
