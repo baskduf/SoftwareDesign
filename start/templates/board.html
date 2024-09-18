@@ -1,0 +1,71 @@
+<h2>게시판</h2>
+<div id="posts"></div>
+<form id="post-form">
+  <input type="text" id="title" placeholder="Title">
+  <textarea id="content" placeholder="Content"></textarea>
+  <button type="submit">Create Post</button>
+</form>
+<button id="logout-btn">Logout</button>
+
+<script>
+function loadPosts() {
+    fetch('/board/')
+    .then(response => response.json())
+    .then(posts => {
+        let postList = '';
+        if (posts.length > 0) {
+            posts.forEach(post => {
+                postList += `<h3>${post.title}</h3><p>${post.content}</p><small>by ${post.author__username} at ${post.created_at}</small><hr>`;
+            });
+        } else {
+            postList = '<p>No posts available.</p>';
+        }
+        document.getElementById('posts').innerHTML = postList;
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+document.getElementById('post-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const title = document.getElementById('title').value;
+    const content = document.getElementById('content').value;
+
+    fetch('/board/create/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        body: JSON.stringify({title, content})
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+        if (data.status === 'success') {
+            loadPosts();
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+document.getElementById('logout-btn').addEventListener('click', function() {
+    fetch('/logout/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+        if (data.status === 'success') {
+            window.location.href = '/';  // 로그아웃 후 로그인 페이지로 이동
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+// Load posts on page load
+loadPosts();
+</script>
