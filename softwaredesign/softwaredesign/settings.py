@@ -33,6 +33,8 @@ SECRET_KEY = "django-insecure-%(mv6b$n=6j0x(cqzj1v74_ug8!zeax#zqq^g+l1!mckw_gk6c
 DEBUG = True
 
 ALLOWED_HOSTS = []
+SHELL_PLUS = "python"
+
 
 
 # Application definition
@@ -44,7 +46,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "main","authentication","adminapp","aiservice"
+    "main","authentication","adminapp","aiservice",
+    'django_extensions',
 ]
 
 MIDDLEWARE = [

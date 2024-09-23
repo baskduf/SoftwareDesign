@@ -173,12 +173,18 @@ function getAINameFromURL() {
     })
     .then(data => {
         // 서버 응답에서 'result' 키를 사용합니다.
-        appendMessage(BOT_NAME, BOT_IMG, "left", data.result);
+        bot_affection = BOT_NAME + " (♥:" + data.affection + ")"
+        appendMessage(bot_affection, BOT_IMG, "left", data.result);
     })
     .catch(error => console.error('Error:', error));
     });
 
     function appendMessage(name, img, side, text) {
+  if (typeof text === 'undefined') {
+    console.error('Text is undefined');
+    return; // undefined인 경우 함수 종료
+  }
+
   const maxLength = 30; // 글자 수 제한 설정 (원하는 숫자로 조정)
 
   // 메시지가 너무 길면 줄 바꿈
@@ -208,7 +214,6 @@ function getAINameFromURL() {
   // 자동 스크롤
   msgerChat.scrollTop = msgerChat.scrollHeight;
 }
-
   
     function get(selector, root = document) {
       return root.querySelector(selector);
