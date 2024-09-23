@@ -17,7 +17,7 @@
     <div class="navbar-logo-center-container shadow-three w-nav">
       <div class="container">
         <div class="navbar-wrapper-three">
-          <a href="#" class="navbar-brand-three w-nav-brand">
+          <a href="/" class="navbar-brand-three w-nav-brand">
             <img src="/static/img/logo.jfif" alt="Logo">
           </a>
           <nav class="nav-menu-wrapper-three w-nav-menu">
@@ -32,16 +32,16 @@
                       <div>Auth</div>
                     </div>
                     <nav class="nav-dropdown-list shadow-three mobile-shadow-hide w-dropdown-list">
-                      <a href="#" class="nav-dropdown-link w-dropdown-link">Signup</a>
-                      <a href="#" class="nav-dropdown-link w-dropdown-link">Login</a>
-                      <a href="#" class="nav-dropdown-link w-dropdown-link">Logout</a>
+                      <a href="/auth/signup/" class="nav-dropdown-link w-dropdown-link">Signup</a>
+                      <a href="/auth/login/" class="nav-dropdown-link w-dropdown-link">Login</a>
+                      <a href="/auth/logout/" class="nav-dropdown-link w-dropdown-link">Logout</a>
                     </nav>
                   </div>
                 </li>
               </ul>
               <ul class="nav-menu-block w-list-unstyled">
                 <li><a href="#" class="nav-link-accent">Docs</a></li>
-                <li><a href="#" class="button-primary w-button">Get Started</a></li>
+                <li><a href="/auth/signup" class="button-primary w-button">Get Started</a></li>
               </ul>
             </div>
           </nav>
@@ -69,11 +69,13 @@
               <h3 class="team-member-name-two">{{ ai.ainame }}</h3>
               <p class="team-member-text">{{ ai.description }}</p>
               <a href="#" class="text-link-arrow w-inline-block">
-                  <div>How we can help you</div>
+                  <div><a href="/service/{{ai.ainame}}" style="hyphens: none;">
+                    How we can help you
+                  </div>
                   <div class="arrow-embed w-embed">
                       <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path fill-rule="evenodd" clip-rule="evenodd" d="M11.72 15L16.3472 10.357C16.7732 9.92932 16.7732 9.23603 16.3472 8.80962L11.72 4.16667L10.1776 5.71508L12.9425 8.4889H4.16669V10.6774H12.9425L10.1776 13.4522L11.72 15Z" fill="currentColor"></path>
-                      </svg>
+                      </svg></a>
                   </div>
               </a>
           </div>
