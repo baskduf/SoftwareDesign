@@ -51,7 +51,7 @@ from aiservice.models import AI
 from authentication.models import UserAI
 
 # .env 파일 로드
-load_dotenv(dotenv_path='C:/Users/my/Desktop/SoftwareDesign/.env')
+load_dotenv(dotenv_path='C:/Users/baskd/OneDrive/Desktop/SoftwareDesign/softwaredesign/.env')
 
 # 환경 변수에서 API 키 가져오기
 API_KEY = os.getenv("API_KEY")
@@ -127,20 +127,32 @@ def get_or_create_user_ai(request, ai_name):
     else:
         print("기존 UserAI를 찾았습니다. affection:", user_ai.affection)
 
-    return user_ai.affection  # affection 값 반환
+    return user_ai  # affection 값 반환
 
 
 def chat_api_request(request,message, ainame):
     try:
+        
+        user_ai = get_or_create_user_ai(request, ai_name=ainame)
+
         ai_object = AI.objects.get(ainame=ainame)
+        check_prompt = (
+            f"#질문 을 듣고 이 단어가 호감에 대한 단어인지 아닌지 파악하고 반드시 (yes/no)로만 대답해줘\n"
+            f"#질문: {message}"
+        )
+
+        result = model.generate_content(check_prompt)
+
+        if result.text.strip().lower() == "yes":
+            user_ai.affection += 1  # affection 증가
+            user_ai.save()  # 업데이트된 affection을 데이터베이스에 저장
 
         prompt = get_prompt_text()
         prompt = replace_placeholders(prompt, ai_object.personality, 0, ainame, message)
         prompt.replace("{채팅로그}", chat_with_ai(request, ainame))
         result = model.generate_content(prompt)
-        affection = get_or_create_user_ai(request, ai_name=ainame)
 
-        return {'result': result.text, 'affection': affection}
+        return {'result': result.text, 'affection': user_ai.affection}
     except Exception as e:
         return {'error': str(e)}
     
