@@ -28,6 +28,23 @@ def create(request):
                 image = form.cleaned_data.get('image')  # 선택 사항 필드
                 personality = form.cleaned_data['personality']
                 description = form.cleaned_data['description']
+
+                # 만약 사용자가 프롬프트를 입력하지 않았을 경우, 기본 프롬프트 설정
+                if not prompt:
+                    if personality == 'calm':
+                        prompt = "차분하게 사용자와 대화하세요."
+                    elif personality == 'active':
+                        prompt = "활기차고 적극적으로 사용자와 대화하세요."
+                    elif personality == 'tsundere':
+                        prompt = "츤데레처럼 약간은 투덜대면서도 도와주는 태도로 사용자와 대화하세요."
+                    elif personality == 'playful':
+                        prompt = "장난스럽게 사용자와 대화를 이어가세요."
+                    elif personality == 'mysterious':
+                        prompt = "신비로운 분위기를 유지하며 사용자와 대화하세요."
+                    elif personality == 'intelligent':
+                        prompt = "지적인 어조로 사용자의 질문에 답하세요."
+
+
                 # 이미지 파일 저장
                 if image:
                     # static 디렉토리의 절대 경로를 얻습니다.
