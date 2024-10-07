@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 추천 갤러리</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'gallery/styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">제목</h1>
+        <div class="ai-recommend">
+            <p>AI 추천</p>
+            <div class="gallery-container">
+                <div class="gallery-item">이미지 갤러리</div>
+                <div class="gallery-item">이미지 갤러리</div>
+                <div class="gallery-item">이미지 갤러리</div>
+                <div class="gallery-item">이미지 갤러리</div>
+                <div class="gallery-item">이미지 갤러리</div>
+            </div>
+            <button class="more-button">더보기</button>
+        </div>
+    </div>
+
+    <script src="{% static 'gallery/scripts.js' %}"></script>
+</body>
+</html>
