@@ -1,0 +1,6 @@
+myenv/
+softwaredesign/staticfiles/
+softwaredesign/__pycache__/
+.env
+mygallery/
+venv/
