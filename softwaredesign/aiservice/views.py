@@ -51,10 +51,7 @@ from aiservice.models import AI
 from authentication.models import UserAI
 
 # .env 파일 로드
-
-load_dotenv(dotenv_path='C:/Users/PC/work/SoftwareDesign/softwaredesign/.env')
-
-load_dotenv(dotenv_path='C:/Users/baskd/OneDrive/Desktop/SoftwareDesign/softwaredesign/.env')
+load_dotenv(dotenv_path='C:/swd/SoftwareDesign/softwaredesign/.env')
 
 
 # 환경 변수에서 API 키 가져오기
