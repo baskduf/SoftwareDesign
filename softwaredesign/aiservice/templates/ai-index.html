@@ -40,13 +40,15 @@
                       </nav>
                     </div>
                   </li>
-                  <li><a href="/adminpage/create/" class="nav-link-accent">Admin</a></li>
+                  {% if request.user.is_superuser %}
+                  <li><a href="/adminpage/" class="nav-link-accent">Admin</a></li>
+                  {% endif %}
                 </ul>
                 <ul class="nav-menu-block w-list-unstyled">
                   {% if request.user.is_authenticated %}
                     <li>
                       <a
-                        href="/auth/logout"
+                        href="/auth/out/"
                         class="button-primary w-button"
                         style="border-radius: 10px;"
                         >Welcome, {{ request.user.username }}</a
@@ -55,7 +57,7 @@
                   {% else %}
                       <li>
                         <a
-                          href="/auth/signup"
+                          href="/auth/signup/"
                           class="button-primary w-button"
                           style="border-radius: 10px;"
                           >Get Started</a

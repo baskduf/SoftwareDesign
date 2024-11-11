@@ -58,8 +58,9 @@
                       <a href="/auth/logout/" class="nav-dropdown-link w-dropdown-link">Logout</a>
                     </nav>
                   </div>
-                </li>
-                <li><a href="/adminpage/create/" class="nav-link-accent">Admin</a></li>
+                  {% if request.user.is_superuser %}
+                  <li><a href="/adminpage/" class="nav-link-accent">Admin</a></li>
+                  {% endif %}
               </ul>
               <ul class="nav-menu-block w-list-unstyled">
 
