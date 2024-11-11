@@ -26,8 +26,7 @@
             <nav class="nav-menu-wrapper-three w-nav-menu">
               <div class="nav-menu-three">
                 <ul class="nav-menu-block w-list-unstyled">
-                  <li><a href="#" class="nav-link">Feature</a></li>
-                  <li><a href="#" class="nav-link">About</a></li>
+                  <li><a href="/about/" class="nav-link">About</a></li>
                   <li>
                     <div class="nav-dropdown w-dropdown">
                       <div class="nav-dropdown-toggle w-dropdown-toggle" role="button" tabindex="0">
@@ -41,13 +40,28 @@
                       </nav>
                     </div>
                   </li>
+                  <li><a href="/adminpage/create/" class="nav-link-accent">Admin</a></li>
                 </ul>
                 <ul class="nav-menu-block w-list-unstyled">
-
-                  <li><a href="/adminpage/create/" class="ai-create">AI 만들기</a></li>
-
-                  <li><a href="#" class="nav-link-accent">Docs</a></li>
-                  <li><a href="/auth/signup" class="button-primary w-button" style="border-radius: 10px;">Get Started</a></li>
+                  {% if request.user.is_authenticated %}
+                    <li>
+                      <a
+                        href="/auth/logout"
+                        class="button-primary w-button"
+                        style="border-radius: 10px;"
+                        >Welcome, {{ request.user.username }}</a
+                      >
+                    </li>
+                  {% else %}
+                      <li>
+                        <a
+                          href="/auth/signup"
+                          class="button-primary w-button"
+                          style="border-radius: 10px;"
+                          >Get Started</a
+                        >
+                      </li>
+                  {% endif %}
                 </ul>
               </div>
             </nav>
@@ -68,7 +82,7 @@
         {% csrf_token %}
         <button type="submit">추천하기</button>
       </form>
-      
+
       <div class="team-slider-wrapper w-slider">
         <div class="w-slider-mask" id="w-slider-mask-0">
           <!--content-->
@@ -86,11 +100,7 @@
     <div class="container-2">
       <div class="footer-wrapper-three">
         <div class="footer-block-three">
-          <a href="#" class="footer-link-three">About us</a>
-          <a href="#" class="footer-link-three">Features</a>
-          <a href="#" class="footer-link-three">User Example</a>
-          <a href="#" class="footer-link-three">Admin</a>
-          <a href="#" class="footer-link-three">Resources</a>
+
         </div>
         <div class="footer-social-block-three">
           <a href="#" class="footer-social-link-three"><img src="https://cdn.prod.website-files.com/62434fa732124a0fb112aab4/62434fa732124a705912aaeb_facebook%20big%20filled.svg" alt="Facebook"></a>

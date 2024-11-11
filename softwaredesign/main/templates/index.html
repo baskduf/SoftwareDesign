@@ -91,8 +91,7 @@
               <div class="nav-menu-three">
                 <ul class="nav-menu-block w-list-unstyled">
                   <!-- 메뉴 항목들 -->
-                  <li><a href="#" class="nav-link">Feature</a></li>
-                  <li><a href="#" class="nav-link">About</a></li>
+                  <li><a href="/about/" class="nav-link">About</a></li>
                   <li>
                     <!-- Auth 섹션을 위한 드롭다운 메뉴 -->
                     <div class="nav-dropdown w-dropdown">
@@ -129,18 +128,29 @@
                       </nav>
                     </div>
                   </li>
+                  <li><a href="/adminpage/create/" class="nav-link-accent">Admin</a></li>
                 </ul>
                 <ul class="nav-menu-block w-list-unstyled">
-                  <li><a href="/adminpage/create/" class="ai-create">AI 만들기</a></li>
-                  <li><a href="#" class="nav-link-accent">Docs</a></li>
-                  <li>
-                    <a
-                      href="/auth/signup"
-                      class="button-primary w-button"
-                      style="border-radius: 10px;"
-                      >Get Started</a
-                    >
-                  </li>
+                  {% if request.user.is_authenticated %}
+                    <li>
+                      <a
+                        href="/auth/out/"
+                        class="button-primary w-button"
+                        style="border-radius: 10px;"
+                        >Welcome, {{ request.user.username }}</a
+                      >
+                    </li>
+                  {% else %}
+                      <li>
+                        <a
+                          href="/auth/signup/"
+                          class="button-primary w-button"
+                          style="border-radius: 10px;"
+                          >Get Started</a
+                        >
+                      </li>
+                  {% endif %}
+                  
                 </ul>
               </div>
             </nav>
@@ -244,11 +254,7 @@
         <div class="footer-wrapper-three">
           <!-- 푸터 내 링크 -->
           <div class="footer-block-three">
-            <a href="#" class="footer-link-three">About us</a>
-            <a href="#" class="footer-link-three">Features</a>
-            <a href="#" class="footer-link-three">User Example</a>
-            <a href="#" class="footer-link-three">Admin</a>
-            <a href="#" class="footer-link-three">Resources</a>
+
           </div>
           <!-- 소셜 미디어 링크 -->
           <div class="footer-social-block-three">
