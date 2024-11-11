@@ -51,7 +51,7 @@ from aiservice.models import AI
 from authentication.models import UserAI
 
 # .env 파일 로드
-load_dotenv(dotenv_path='C:/swd/SoftwareDesign/softwaredesign/.env')
+load_dotenv(dotenv_path='C:/Users/baskd/OneDrive/Desktop/SoftwareDesign/.env')
 
 
 # 환경 변수에서 API 키 가져오기
@@ -178,3 +178,11 @@ def chat_api_view(request, ainame):
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
     return JsonResponse({'error': 'Invalid request method'}, status=400)
+
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse
+
+def recommend_ai(request, ainame):
+    ai = get_object_or_404(AI, ainame=ainame)
+    ai.recommend()  # 추천 횟수 증가
+    return redirect(reverse('ai_index', args=[ainame]))

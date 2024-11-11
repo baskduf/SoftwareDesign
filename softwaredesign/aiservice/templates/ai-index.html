@@ -62,9 +62,17 @@
     <div class="container-2">
       <h2 class="centered-heading">{{ ai.ainame }}</h2>
       <p class="centered-subheading">당신이 선택한 AI</p>
+      <p>추천 수: {{ ai.recommend_count }}</p>
+
+      <form action="{% url 'recommend_ai' ai.ainame %}" method="post">
+        {% csrf_token %}
+        <button type="submit">추천하기</button>
+      </form>
+      
       <div class="team-slider-wrapper w-slider">
         <div class="w-slider-mask" id="w-slider-mask-0">
           <!--content-->
+
           <img src="{{ image_url }}" alt="{{ ai.ainame }}의 이미지" style="width: 300px; height: 300px;"><br><br>
           <h2>새로운 추억을 만들어 보세요.</h2>
           <p>{{ ai.description }}</p><br>

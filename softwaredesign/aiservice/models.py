@@ -19,6 +19,11 @@ class AI(models.Model):
         ],
         default='calm'
     )
+    recommend_count = models.PositiveIntegerField(default=0)  # 추천 횟수 필드 추가
+    
+    def recommend(self):
+        self.recommend_count += 1
+        self.save()
 
     def __str__(self):
         return self.ainame
