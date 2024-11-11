@@ -7,7 +7,7 @@ def about(request):
 
 def index(request):
     
-    ai_objects = AI.objects.all()
+    ai_objects = AI.objects.all().order_by('-created_at')
     return render(request, "index.html",{'ai_objects': ai_objects})
 
 
