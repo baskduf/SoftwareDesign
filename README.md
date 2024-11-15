@@ -49,13 +49,10 @@ Google의 AI API와 통신하기 위해 API 키가 필요합니다. 다음 링�
 프로젝트 루트 디렉터리에 `.env` 파일을 생성하여 환경 변수를 설정해야 합니다. `.env` 파일의 기본 구조는 다음과 같습니다:
 
 ```plaintext
-SECRET_KEY=your_secret_key_here
-DEBUG=True
-DATABASE_URL=sqlite:///db.sqlite3
 API_KEY="your_google_api_key_here"
 ```
 
-> **경로 지정:** `settings.py` 파일에서 `.env` 파일의 경로를 다음과 같이 설정해야 합니다:
+> **경로 지정:** `aiservice/views.py` 파일에서 `.env` 파일의 경로를 다음과 같이 설정해야 합니다:
 
 ```python
 from dotenv import load_dotenv
@@ -88,7 +85,7 @@ python manage.py createsuperuser
 python manage.py runserver
 ```
 
-웹 브라우저에서 `http://127.0.0.1:8000/`에 접속하여 프로젝트를 확인할 수 있습니다.
+웹 브라우저에서 `http://localhost:8000/`에 접속하여 프로젝트를 확인할 수 있습니다.
 
 ## 추가 정보
 
