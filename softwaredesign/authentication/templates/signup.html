@@ -45,7 +45,6 @@
           <nav class="nav-menu-wrapper-three w-nav-menu">
             <div class="nav-menu-three">
               <ul class="nav-menu-block w-list-unstyled">
-                <li><a href="#" class="nav-link">Feature</a></li>
                 <li><a href="#" class="nav-link">About</a></li>
                 <li>
                   <div class="nav-dropdown w-dropdown">
@@ -59,14 +58,31 @@
                       <a href="/auth/logout/" class="nav-dropdown-link w-dropdown-link">Logout</a>
                     </nav>
                   </div>
-                </li>
+                  {% if request.user.is_superuser %}
+                  <li><a href="/adminpage/" class="nav-link-accent">Admin</a></li>
+                  {% endif %}
               </ul>
               <ul class="nav-menu-block w-list-unstyled">
 
-                <li><a href="/adminpage/create/" class="ai-create">AI 만들기</a></li>
-
-                <li><a href="#" class="nav-link-accent">Docs</a></li>
-                <li><a href="/auth/signup" class="button-primary w-button">Get Started</a></li>
+                {% if request.user.is_authenticated %}
+                    <li>
+                      <a
+                        href="/auth/out/"
+                        class="button-primary w-button"
+                        style="border-radius: 10px;"
+                        >Welcome, {{ request.user.username }}</a
+                      >
+                    </li>
+                  {% else %}
+                      <li>
+                        <a
+                          href="/auth/signup/"
+                          class="button-primary w-button"
+                          style="border-radius: 10px;"
+                          >Get Started</a
+                        >
+                      </li>
+                  {% endif %}
               </ul>
             </div>
           </nav>
@@ -101,8 +117,8 @@
                             </div>
                         {% endif %}
                     </div>
-                    <a href="#" class="text-link-arrow-2 w-inline-block">
-                        <div>or Sign-up with Google</div>
+                    <a href="/auth/login" class="text-link-arrow-2 w-inline-block">
+                        <div>계정이 없으신가요? 로그인 하기</div>
                         <div class="arrow-embed-2 w-embed">
                             <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M11.13 8.5L6.87296 4.24291L5.87067 5.24379L9.129 8.5L5.87067 11.7555L6.87225 12.7571L11.13 8.5Z" fill="currentColor"></path>
@@ -119,11 +135,6 @@
         <div class="container-3">
             <div class="footer-wrapper-three-2">
                 <div class="footer-block-three-2">
-                    <a href="#" class="footer-link-three-2">About us</a>
-                    <a href="#" class="footer-link-three-2">Features</a>
-                    <a href="#" class="footer-link-three-2">User Example</a>
-                    <a href="#" class="footer-link-three-2">Admin</a>
-                    <a href="#" class="footer-link-three-2">Resources</a>
                 </div>
                 <div class="footer-social-block-three-2">
                     <a href="#" class="footer-social-link-three-2 w-inline-block">
@@ -144,8 +155,6 @@
             <div class="footer-bottom-2">
                 <div class="footer-copyright-2">© 2024 Software Design friendAI</div>
                 <div class="footer-legal-block-2">
-                    <a href="#" class="footer-legal-link-2">Terms Of Use</a>
-                    <a href="#" class="footer-legal-link-2">Privacy Policy</a>
                 </div>
             </div>
         </div>

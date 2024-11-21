@@ -4,6 +4,62 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>friendAI</title>
+  <style>
+    .recommend-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .recommend-button:hover {
+      background-color: #e63946;
+    }
+    .ai-image {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      border-radius: 15px;
+      margin-bottom: 20px;
+    }
+    .centered-heading {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    .centered-subheading {
+      font-size: 1rem;
+      margin-bottom: 20px;
+      color: #666;
+    }
+    .description {
+      margin-top: 20px;
+      font-size: 1.1rem;
+      color: #444;
+    }
+    .button-primary {
+      margin-top: 30px;
+      padding: 15px 30px;
+      background-color: black;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .button-primary:hover {
+      background-color: #333;
+    }
+  </style>
+  
   <!-- static 태그 로드 -->
   {% load static %}
   <style>.wf-force-outline-none[tabindex="-1"]:focus{outline:none;}</style>
@@ -26,8 +82,7 @@
             <nav class="nav-menu-wrapper-three w-nav-menu">
               <div class="nav-menu-three">
                 <ul class="nav-menu-block w-list-unstyled">
-                  <li><a href="#" class="nav-link">Feature</a></li>
-                  <li><a href="#" class="nav-link">About</a></li>
+                  <li><a href="/about/" class="nav-link">About</a></li>
                   <li>
                     <div class="nav-dropdown w-dropdown">
                       <div class="nav-dropdown-toggle w-dropdown-toggle" role="button" tabindex="0">
@@ -41,13 +96,30 @@
                       </nav>
                     </div>
                   </li>
+                  {% if request.user.is_superuser %}
+                  <li><a href="/adminpage/" class="nav-link-accent">Admin</a></li>
+                  {% endif %}
                 </ul>
                 <ul class="nav-menu-block w-list-unstyled">
-
-                  <li><a href="/adminpage/create/" class="ai-create">AI 만들기</a></li>
-
-                  <li><a href="#" class="nav-link-accent">Docs</a></li>
-                  <li><a href="/auth/signup" class="button-primary w-button">Get Started</a></li>
+                  {% if request.user.is_authenticated %}
+                    <li>
+                      <a
+                        href="/auth/out/"
+                        class="button-primary w-button"
+                        style="border-radius: 10px;"
+                        >Welcome, {{ request.user.username }}</a
+                      >
+                    </li>
+                  {% else %}
+                      <li>
+                        <a
+                          href="/auth/signup/"
+                          class="button-primary w-button"
+                          style="border-radius: 10px;"
+                          >Get Started</a
+                        >
+                      </li>
+                  {% endif %}
                 </ul>
               </div>
             </nav>
@@ -58,17 +130,29 @@
   
 
   <!-- Team Slider Section -->
-  <section class="team-slider">
+  <section class="team-slider" style="border-radius: 20px;">
     <div class="container-2">
       <h2 class="centered-heading">{{ ai.ainame }}</h2>
       <p class="centered-subheading">당신이 선택한 AI</p>
+      {% comment %} <p>추천 수: {{ ai.recommend_count }}</p> {% endcomment %}
+
+      <form action="{% url 'recommend_ai' ai.ainame %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="recommend-button">
+          <span>👍 추천하기</span>
+          <span class="recommend-count">{{ ai.recommend_count }}</span>
+        </button>
+      </form>
+      
+
       <div class="team-slider-wrapper w-slider">
         <div class="w-slider-mask" id="w-slider-mask-0">
           <!--content-->
+
           <img src="{{ image_url }}" alt="{{ ai.ainame }}의 이미지" style="width: 300px; height: 300px;"><br><br>
           <h2>새로운 추억을 만들어 보세요.</h2>
           <p>{{ ai.description }}</p><br>
-        <a href="/service/{{ai.ainame}}/chat/" class="button-primary w-button">Start Chat</a>
+        <a href="/service/{{ai.ainame}}/chat/" class="button-primary w-button" style="border-radius: 10px;">Start Chat</a>
       </div>
     </div>
   </section>
@@ -78,11 +162,7 @@
     <div class="container-2">
       <div class="footer-wrapper-three">
         <div class="footer-block-three">
-          <a href="#" class="footer-link-three">About us</a>
-          <a href="#" class="footer-link-three">Features</a>
-          <a href="#" class="footer-link-three">User Example</a>
-          <a href="#" class="footer-link-three">Admin</a>
-          <a href="#" class="footer-link-three">Resources</a>
+
         </div>
         <div class="footer-social-block-three">
           <a href="#" class="footer-social-link-three"><img src="https://cdn.prod.website-files.com/62434fa732124a0fb112aab4/62434fa732124a705912aaeb_facebook%20big%20filled.svg" alt="Facebook"></a>

@@ -6,6 +6,11 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import SignupForm, LoginForm
 from django.contrib.auth.models import User
+from django.contrib.auth import logout
+
+def out(request):
+    logout(request)
+    return redirect('/')  # 로그아웃 후 리디렉션할 URL
 
 def signup(request):
     if request.method == 'POST':
