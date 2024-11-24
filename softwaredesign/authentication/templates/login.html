@@ -31,44 +31,43 @@
 </head>
 
 <body>
-      <!-- Navbar Section -->
-  <div class="navbar-logo-center">
-    <div class="navbar-logo-center-container shadow-three w-nav">
-      <div class="container">
-        <div class="navbar-wrapper-three">
-          <a href="/" class="navbar-brand-three w-nav-brand">
-            <img src="/static/img/logo.jfif" alt="Logo">
-          </a>
-          <nav class="nav-menu-wrapper-three w-nav-menu">
-            <div class="nav-menu-three">
-              <ul class="nav-menu-block w-list-unstyled">
-                <li><a href="#" class="nav-link">Feature</a></li>
-                <li><a href="#" class="nav-link">About</a></li>
-                <li>
-                  <div class="nav-dropdown w-dropdown">
-                    <div class="nav-dropdown-toggle w-dropdown-toggle" role="button" tabindex="0">
-                      <div class="nav-dropdown-icon w-icon-dropdown-toggle"></div>
-                      <div>Auth</div>
-                    </div>
-                    <nav class="nav-dropdown-list shadow-three mobile-shadow-hide w-dropdown-list">
-                      <a href="/auth/signup/" class="nav-dropdown-link w-dropdown-link">Signup</a>
-                      <a href="/auth/login/" class="nav-dropdown-link w-dropdown-link">Login</a>
-                      <a href="/auth/logout/" class="nav-dropdown-link w-dropdown-link">Logout</a>
+    <!-- Navbar Section -->
+    <div class="navbar-logo-center">
+        <div class="navbar-logo-center-container shadow-three w-nav">
+            <div class="container">
+                <div class="navbar-wrapper-three">
+                    <a href="/" class="navbar-brand-three w-nav-brand">
+                        <img src="/static/img/logo.jfif" alt="Logo">
+                    </a>
+                    <nav class="nav-menu-wrapper-three w-nav-menu">
+                        <div class="nav-menu-three">
+                            <ul class="nav-menu-block w-list-unstyled">
+                                <li><a href="#" class="nav-link">Feature</a></li>
+                                <li><a href="#" class="nav-link">About</a></li>
+                                <li>
+                                    <div class="nav-dropdown w-dropdown">
+                                        <div class="nav-dropdown-toggle w-dropdown-toggle" role="button" tabindex="0">
+                                            <div class="nav-dropdown-icon w-icon-dropdown-toggle"></div>
+                                            <div>Auth</div>
+                                        </div>
+                                        <nav class="nav-dropdown-list shadow-three mobile-shadow-hide w-dropdown-list">
+                                            <a href="/auth/signup/" class="nav-dropdown-link w-dropdown-link">Signup</a>
+                                            <a href="/auth/login/" class="nav-dropdown-link w-dropdown-link">Login</a>
+                                            <a href="/auth/logout/" class="nav-dropdown-link w-dropdown-link">Logout</a>
+                                        </nav>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="nav-menu-block w-list-unstyled">
+                                <li><a href="#" class="nav-link-accent">Docs</a></li>
+                                <li><a href="/auth/signup" class="button-primary w-button">Get Started</a></li>
+                            </ul>
+                        </div>
                     </nav>
-                  </div>
-                </li>
-              </ul>
-              <ul class="nav-menu-block w-list-unstyled">
-                <li><a href="#" class="nav-link-accent">Docs</a></li>
-                <li><a href="/auth/signup" class="button-primary w-button">Get Started</a></li>
-              </ul>
+                </div>
             </div>
-          </nav>
         </div>
-      </div>
     </div>
-  </div>
-
 
     <!-- Main Content -->
     <section class="hero-subscribe-right">
@@ -80,9 +79,10 @@
                 <div class="hero-split">
                     <h1>Login</h1>
                     <p class="margin-bottom-24px">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse tincidunt sagittis eros. Quisque quis euismod lorem. Etiam sodales ac felis id interdum.</p>
+
                     <!-- Form -->
                     <div class="hero-form w-form">
-                        <form id="wf-form-Hero-Form" name="wf-form-Hero-Form" method="post" action="#" class="hero-form-container" aria-label="Hero Form">
+                        <form id="wf-form-Hero-Form" name="wf-form-Hero-Form" method="post" action="{% url 'login' %}" class="hero-form-container" aria-label="Hero Form">
                             {% csrf_token %}
                             {{ form.as_p }}
                             <input type="submit" data-wait="Please wait..." class="button-primary-3 w-button" value="Login">
@@ -95,14 +95,15 @@
                             </div>
                         {% endif %}
                     </div>
-                    <a href="#" class="text-link-arrow-2 w-inline-block">
-                        <div>or Login with Google</div>
-                        <div class="arrow-embed-2 w-embed">
-                            <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M11.13 8.5L6.87296 4.24291L5.87067 5.24379L9.129 8.5L5.87067 11.7555L6.87225 12.7571L11.13 8.5Z" fill="currentColor"></path>
-                            </svg>
-                        </div>
-                    </a>
+
+                    <!-- Social Login -->
+                    <div class="social-login">
+                        <h3>또는 소셜 계정으로 로그인</h3>
+                        <a href="{% url 'social:begin' 'google-oauth2' %}" class="button-social-login w-button">
+                            <img src="/static/img/google-logo.png" alt="Google Logo" class="social-logo\">
+                            구글로 로그인 또는 회원가입하기
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -116,7 +117,6 @@
                     <a href="#" class="footer-link-three-2">About us</a>
                     <a href="#" class="footer-link-three-2">Features</a>
                     <a href="#" class="footer-link-three-2">User Example</a>
-                    <a href="#" class="footer-link-three-2">a</a>
                     <a href="#" class="footer-link-three-2">Resources</a>
                 </div>
                 <div class="footer-social-block-three-2">
@@ -128,9 +128,6 @@
                     </a>
                     <a href="#" class="footer-social-link-three-2 w-inline-block">
                         <img src="https://cdn.prod.website-files.com/62434fa732124a0fb112aab4/62434fa732124a61f512aaed_instagram%20big.svg" loading="lazy" alt="">
-                    </a>
-                    <a href="#" class="footer-social-link-three-2 w-inline-block">
-                        <img src="https://cdn.prod.website-files.com/62434fa732124a0fb112aab4/62434fa732124a717f12aaea_youtube%20small.svg" loading="lazy" alt="">
                     </a>
                 </div>
             </div>

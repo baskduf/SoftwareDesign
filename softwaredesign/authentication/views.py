@@ -6,7 +6,8 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import SignupForm, LoginForm
 from django.contrib.auth.models import User
-
+from softwaredesign import settings
+from django.contrib.sites import requests
 def signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
@@ -52,3 +53,79 @@ def login(request):
         form = LoginForm()
     
     return render(request, 'login.html', {'form': form})
+
+# Google 로그인 시작 뷰
+def google_login(request):
+    """
+    Google OAuth2 로그인 요청
+    """
+    google_auth_endpoint = 'https://accounts.google.com/o/oauth2/v2/auth'
+    redirect_uri = settings.SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI
+    scope = 'openid email profile'
+    response_type = 'code'
+
+    client_id = settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
+
+    auth_url = (
+        f"{google_auth_endpoint}?response_type={response_type}&client_id={client_id}"
+        f"&redirect_uri={redirect_uri}&scope={scope}"
+    )
+
+    return redirect(auth_url)
+
+# Google 로그인 콜백 뷰
+def google_callback(request):
+    """
+    Google 인증 후 사용자 처리
+    """
+    code = request.GET.get('code')
+    if not code:
+        messages.error(request, 'Authentication failed. No code provided.')
+        return redirect('/auth/login/')
+
+    # Access Token 요청
+    token_url = 'https://oauth2.googleapis.com/token'
+    redirect_uri = settings.SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI
+    client_id = settings.SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
+    client_secret = settings.SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET
+
+    token_data = {
+        'code': code,
+        'client_id': client_id,
+        'client_secret': client_secret,
+        'redirect_uri': redirect_uri,
+        'grant_type': 'authorization_code',
+    }
+
+    token_response = requests.post(token_url, data=token_data)
+    token_json = token_response.json()
+    access_token = token_json.get('access_token')
+
+    if not access_token:
+        messages.error(request, 'Failed to obtain access token.')
+        return redirect('/auth/login/')
+
+    # Google 사용자 정보 요청
+    user_info_url = 'https://www.googleapis.com/oauth2/v3/userinfo'
+    user_info_response = requests.get(
+        user_info_url, headers={'Authorization': f'Bearer {access_token}'}
+    )
+    user_info = user_info_response.json()
+
+    email = user_info.get('email')
+    name = user_info.get('name')
+
+    if not email:
+        messages.error(request, 'Failed to retrieve email address.')
+        return redirect('/auth/login/')
+
+    # 사용자 생성 또는 가져오기
+    user, created = User.objects.get_or_create(username=email, defaults={'email': email, 'first_name': name})
+    if created:
+        user.set_unusable_password()
+        user.save()
+
+    # 로그인 처리
+    auth_login(request, user)
+    messages.success(request, 'You have successfully logged in with Google!')
+    return redirect('/')

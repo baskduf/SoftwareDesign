@@ -32,7 +32,8 @@ SECRET_KEY = "django-insecure-%(mv6b$n=6j0x(cqzj1v74_ug8!zeax#zqq^g+l1!mckw_gk6c
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+
 SHELL_PLUS = "python"
 
 
@@ -46,8 +47,15 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'social_django',
     "main","authentication","adminapp","aiservice",
     'django_extensions',
+
+]
+
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
 ]
 
 MIDDLEWARE = [
@@ -73,6 +81,8 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "social_django.context_processors.backends",
+                "social_django.context_processors.login_redirect",
             ],
         },
     },
@@ -110,6 +120,16 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '1092993640289-q4ctn9oo4o95chnu5hmd3mrma7uu41gf.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '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'
+
+LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/'  # 로그인 후 이동할 URL
+LOGOUT_REDIRECT_URL = '/'  # 로그아웃 후 이동할 URL
+SOCIAL_AUTH_GOOGLE_OAUTH2_REDIRECT_URI = 'http://127.0.0.1:8000/auth/social/complete/google-oauth2/'
+
+
+LOGIN_URL = '/auth/login/'
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/

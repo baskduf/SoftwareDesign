@@ -23,4 +23,7 @@ urlpatterns = [
     path('service/', include('aiservice.urls')),
     path("adminpage/", include('adminapp.urls')),
     path("admin/", admin.site.urls),
+
+    path('auth/', include('social_django.urls', namespace='social')),  # 소셜 인증 URL
+
 ]

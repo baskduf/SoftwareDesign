@@ -50,10 +50,10 @@ def chat(request, ainame):
 
 
 # .env 파일 로드
-BASE_DIR = Path(__file__).resolve().parent.parent
+#BASE_DIR = Path(__file__).resolve().parent.parent
 
 # .env 파일 로드
-load_dotenv(dotenv_path=BASE_DIR / '.env')
+load_dotenv(dotenv_path="C:/Users/20112/SoftwareDesign/softwaredesign/.env.txt")
 
 # 환경 변수에서 API 키 가져오기
 API_KEY = os.getenv("API_KEY")
