@@ -70,8 +70,7 @@ def create(request):
                     ainame=ainame,
                     prompt=prompt,
                     description=description,
-                    personality=personality,
-                    image=f'img/{file_name}'  # 이미지 경로를 DB에 저장
+                    personality=personality
                 )
                 ai_instance.save()
 
