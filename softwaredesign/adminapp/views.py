@@ -19,7 +19,7 @@ from django.conf import settings
 import os
 from .forms import createAIForm
 from authentication.models import AI
-
+from django.contrib import messages  # messages 모듈 임포트
 from django.core.exceptions import ValidationError
 
 def create(request):
@@ -45,8 +45,9 @@ def create(request):
 
                 # 확장자가 허용된 목록에 없는 경우
                 if ext.lower() not in allowed_extensions:
-                    # ValidationError를 발생시켜 사용자에게 알림
-                    raise ValidationError("허용되지 않는 파일 형식입니다. jijf 파일만 업로드 가능합니다.")
+                    # 오류 메시지 추가
+                    messages.error(request, "허용되지 않는 파일 형식입니다. jijf 파일만 업로드 가능합니다.")
+                    return redirect('create')  # 다시 폼 페이지로 리다이렉트
 
                 # 이미지 파일 저장 경로 설정
                 media_dir = os.path.join(settings.MEDIA_ROOT, 'img')

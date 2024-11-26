@@ -24,6 +24,16 @@
       rel="apple-touch-icon"
       href="https://cdn.prod.website-files.com/img/webclip.png"
     />
+    <script>
+      // 페이지 로드 후 Django에서 전달한 메시지를 JavaScript로 읽어서 alert을 표시
+      document.addEventListener('DOMContentLoaded', function() {
+    {% if messages %}
+        {% for message in messages %}
+            alert("{{ message }}");  // alert로 메시지 표시
+        {% endfor %}
+    {% endif %}
+});
+</script>
   </head>
   <body class="container">
     <!-- Navbar Section -->
