@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from aiservice.models import AI
+
+from django.conf import settings
 # Create your views here.
 
-def about(request):
-    return render(request, "about.html")
+def about(request):    # BASE_DIR을 사용하여 README.md 파일 경로 설정
+    return render(request, 'about.html')
 
 def index(request):
     

@@ -8,6 +8,38 @@ from .forms import SignupForm, LoginForm
 from django.contrib.auth.models import User
 from django.contrib.auth import logout
 
+from django.shortcuts import render, redirect
+from django.contrib.auth import login
+from django.contrib.auth.models import User
+from social_django.models import UserSocialAuth
+
+def social_login(request):
+    if request.user.is_authenticated:
+        # 카카오 로그인 후, 사용자의 정보 가져오기
+        kakao_user_info = request.user.social_auth.get(provider='kakao').extra_data
+        email = kakao_user_info.get('kakao_account', {}).get('email')
+        name = kakao_user_info.get('properties', {}).get('nickname')
+        
+        # 기존 사용자가 존재하는지 확인
+        if not User.objects.filter(email=email).exists():
+            # 신규 사용자일 경우 회원가입 진행
+            user = User.objects.create_user(username=email, email=email, password=None)
+            user.first_name = name  # 이름 설정
+            user.save()
+
+            # 회원가입 후 로그인
+            login(request, user)
+        
+        # 기존 사용자라면 바로 로그인
+        else:
+            user = User.objects.get(email=email)
+            login(request, user)
+
+        return redirect('/')  # 로그인 후 리다이렉트
+
+    return redirect('social:begin', 'kakao')  # 로그인 페이지로 리다이렉트
+
+
 def out(request):
     logout(request)
     return redirect('/')  # 로그아웃 후 리디렉션할 URL

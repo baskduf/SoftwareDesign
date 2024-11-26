@@ -154,7 +154,6 @@
         </button>
       </form>
     
-      <!-- 추천하기 버튼 -->
       <form action="{% url 'recommend_ai' ai.ainame %}" method="post">
         {% csrf_token %}
         <button type="submit" class="recommend-button">

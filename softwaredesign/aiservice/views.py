@@ -50,11 +50,19 @@ import google.generativeai as genai
 from aiservice.models import AI
 from authentication.models import UserAI
 
+import os
+from dotenv import load_dotenv
+
+# 프로젝트 최상단 경로 동적으로 계산
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# .env 파일 경로 설정
+dotenv_path = os.path.join(project_root, '.env')
+
 # .env 파일 로드
-load_dotenv(dotenv_path='C:/Users/PC/SoftwareDesign/softwaredesign/.env')
-
-
+load_dotenv(dotenv_path=dotenv_path)
 # 환경 변수에서 API 키 가져오기
+
 API_KEY = os.getenv("API_KEY")
 if not API_KEY:
     raise ValueError("API_KEY is not set in the environment variables.")
