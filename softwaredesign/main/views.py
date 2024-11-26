@@ -3,6 +3,7 @@ from aiservice.models import AI
 
 from django.conf import settings
 import markdown
+import os
 # Create your views here.
 
 def about(request):    # BASE_DIR을 사용하여 README.md 파일 경로 설정
