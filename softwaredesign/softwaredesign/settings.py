@@ -16,11 +16,22 @@ CSRF_COOKIE_NAME = 'csrftoken'
 CSRF_HEADER_NAME = 'X-CSRFToken'
 
 
+
 # settings.py
 AUTH_USER_MODEL = 'authentication.User'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+import os
+
+# Static files (CSS, JavaScript, images)
+STATIC_URL = '/static/'
+
+# Collect static files into this directory
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -56,6 +67,7 @@ INSTALLED_APPS = [
 AUTHENTICATION_BACKENDS = [
     'social_core.backends.google.GoogleOAuth2',
     'django.contrib.auth.backends.ModelBackend',
+    'django_extensions', 'social_django',
 ]
 
 MIDDLEWARE = [
@@ -87,6 +99,29 @@ TEMPLATES = [
         },
     },
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.kakao.KakaoOAuth2',
+    'django.contrib.auth.backends.ModelBackend',  # 기본 로그인 백엔드
+)
+
+LOGIN_REDIRECT_URL = '/'  # 홈 페이지로 리다이렉트
+
+from dotenv import load_dotenv
+
+# 프로젝트 최상단 경로 동적으로 계산
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# .env 파일 경로 설정
+dotenv_path = os.path.join(project_root, '.env')
+
+# .env 파일 로드
+load_dotenv(dotenv_path=dotenv_path)
+# 환경 변수에서 API 키 가져오기
+
+
+SOCIAL_AUTH_KAKAO_KEY = os.getenv('SOCIAL_AUTH_KAKAO_KEY')
+SOCIAL_AUTH_KAKAO_SECRET = os.getenv('SOCIAL_AUTH_KAKAO_SECRET')
 
 WSGI_APPLICATION = "softwaredesign.wsgi.application"
 

@@ -16,6 +16,9 @@
     <!-- Stylesheets -->
     <link href="https://cdn.prod.website-files.com/66e51a8bf5d1242ba172c682/css/friendai.webflow.95ca5610a.css" rel="stylesheet" type="text/css">
 
+    <link href="/static/css/ai-chat.css" rel="stylesheet" type="text/css">
+
+
     <!-- Favicon and Apple Touch Icon -->
     <link href="https://cdn.prod.website-files.com/img/favicon.ico" rel="shortcut icon" type="image/x-icon">
     <link href="https://cdn.prod.website-files.com/img/webclip.png" rel="apple-touch-icon">
@@ -31,6 +34,7 @@
 </head>
 
 <body>
+<<<<<<< HEAD
     <!-- Navbar Section -->
     <div class="navbar-logo-center">
         <div class="navbar-logo-center-container shadow-three w-nav">
@@ -65,6 +69,58 @@
                         </div>
                     </nav>
                 </div>
+=======
+      <!-- Navbar Section -->
+  <div class="navbar-logo-center">
+    <div class="navbar-logo-center-container shadow-three w-nav">
+      <div class="container">
+        <div class="navbar-wrapper-three">
+          <a href="/" class="navbar-brand-three w-nav-brand">
+            <img src="/static/img/logo.jfif" alt="Logo">
+          </a>
+          <nav class="nav-menu-wrapper-three w-nav-menu">
+            <div class="nav-menu-three">
+              <ul class="nav-menu-block w-list-unstyled">
+                <li><a href="#" class="nav-link">About</a></li>
+                <li>
+                  <div class="nav-dropdown w-dropdown">
+                    <div class="nav-dropdown-toggle w-dropdown-toggle" role="button" tabindex="0">
+                      <div class="nav-dropdown-icon w-icon-dropdown-toggle"></div>
+                      <div>Auth</div>
+                    </div>
+                    <nav class="nav-dropdown-list shadow-three mobile-shadow-hide w-dropdown-list">
+                      <a href="/auth/signup/" class="nav-dropdown-link w-dropdown-link">Signup</a>
+                      <a href="/auth/login/" class="nav-dropdown-link w-dropdown-link">Login</a>
+                      <a href="/auth/logout/" class="nav-dropdown-link w-dropdown-link">Logout</a>
+                    </nav>
+                  </div>
+                  {% if request.user.is_superuser %}
+                  <li><a href="/adminpage/" class="nav-link-accent">Admin</a></li>
+                  {% endif %}
+              </ul>
+              <ul class="nav-menu-block w-list-unstyled">
+
+                {% if request.user.is_authenticated %}
+                    <li>
+                      <a
+                        href="/auth/out/"
+                        class="button-primary w-button"
+                        style="border-radius: 10px;"
+                        >Welcome, {{ request.user.username }}</a
+                      >
+                    </li>
+                  {% else %}
+                      <li>
+                        <a
+                          href="/auth/signup/"
+                          class="button-primary w-button"
+                          style="border-radius: 10px;"
+                          >Get Started</a
+                        >
+                      </li>
+                  {% endif %}
+              </ul>
+>>>>>>> main
             </div>
         </div>
     </div>
@@ -95,6 +151,7 @@
                             </div>
                         {% endif %}
                     </div>
+<<<<<<< HEAD
 
                     <!-- Social Login -->
                     <div class="social-login">
@@ -104,6 +161,10 @@
                             구글로 로그인 또는 회원가입하기
                         </a>
                     </div>
+=======
+                    <a href="#" class="text-link-arrow-2 w-inline-block">
+                    </a>
+>>>>>>> main
                 </div>
             </div>
         </div>
@@ -114,10 +175,13 @@
         <div class="container-3">
             <div class="footer-wrapper-three-2">
                 <div class="footer-block-three-2">
+<<<<<<< HEAD
                     <a href="#" class="footer-link-three-2">About us</a>
                     <a href="#" class="footer-link-three-2">Features</a>
                     <a href="#" class="footer-link-three-2">User Example</a>
                     <a href="#" class="footer-link-three-2">Resources</a>
+=======
+>>>>>>> main
                 </div>
                 <div class="footer-social-block-three-2">
                     <a href="#" class="footer-social-link-three-2 w-inline-block">
@@ -135,8 +199,6 @@
             <div class="footer-bottom-2">
                 <div class="footer-copyright-2">© 2024 Software Design friendAI</div>
                 <div class="footer-legal-block-2">
-                    <a href="#" class="footer-legal-link-2">Terms Of Use</a>
-                    <a href="#" class="footer-legal-link-2">Privacy Policy</a>
                 </div>
             </div>
         </div>

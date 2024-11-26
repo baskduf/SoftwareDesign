@@ -15,11 +15,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from authentication import views
 from django.urls import path, include
 
 urlpatterns = [
+<<<<<<< HEAD
     # 기존 URL 패턴
     path('login/', views.login, name='login'),  # 일반 로그인
     path('signup/', views.signup, name='signup'),  # 회원가입
@@ -32,3 +33,10 @@ urlpatterns = [
     # 소셜 로그인 관련 URL 패턴
     path('social/', include('social_django.urls', namespace='social')),  # social_django 기본 URL
 ]
+=======
+    path('login/', views.login, name='login'),
+    path('signup/', views.signup, name='signup'),
+    path('out/', views.out, name='out'),
+    path('', include('social_django.urls', namespace='social'))
+]
+>>>>>>> main

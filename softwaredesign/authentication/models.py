@@ -13,12 +13,24 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
+    
+    def subscribed_ais(self):
+        return [user_ai.ai for user_ai in UserAI.objects.filter(user=self, subscribed=True)]
 
 #User와 AI의 관계 모델
 class UserAI(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     ai = models.ForeignKey(AI, on_delete=models.CASCADE)
     affection = models.IntegerField(default=0)  # 호감도 필드 (0~100)
+    subscribed = models.BooleanField(default=False)  # AI 구독 상태
+
+    def subscribe(self):
+        self.subscribed = True
+        self.save()
+
+    def unsubscribe(self):
+        self.subscribed = False
+        self.save()
 
     class Meta:
         unique_together = ('user', 'ai')

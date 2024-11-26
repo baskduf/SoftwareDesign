@@ -49,13 +49,27 @@ def chat(request, ainame):
     })
 
 
+<<<<<<< HEAD
 # .env 파일 로드
 #BASE_DIR = Path(__file__).resolve().parent.parent
 
 # .env 파일 로드
 load_dotenv(dotenv_path="C:/Users/20112/SoftwareDesign/softwaredesign/.env.txt")
+=======
+import os
+from dotenv import load_dotenv
+>>>>>>> main
 
+# 프로젝트 최상단 경로 동적으로 계산
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# .env 파일 경로 설정
+dotenv_path = os.path.join(project_root, '.env')
+
+# .env 파일 로드
+load_dotenv(dotenv_path=dotenv_path)
 # 환경 변수에서 API 키 가져오기
+
 API_KEY = os.getenv("API_KEY")
 if not API_KEY:
     raise ValueError("API_KEY is not set in the environment variables.")
@@ -199,3 +213,12 @@ def chat_api_view(request, ainame):
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
     return JsonResponse({'error': 'Invalid request method'}, status=400)
+
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse
+
+def recommend_ai(request, ainame):
+    ai = get_object_or_404(AI, ainame=ainame)
+    ai.recommend()  # 추천 횟수 증가
+    return redirect(reverse('ai_index', args=[ainame]))
+

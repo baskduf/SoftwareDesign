@@ -2,8 +2,12 @@ from django.shortcuts import render
 from .forms import createAIForm
 # Create your views here.
 from authentication.models import AI
+from django.http import HttpResponseForbidden
 
 def index(request):
+    # 사용자가 슈퍼유저가 아닌 경우 접근 금지 응답 반환
+    if not request.user.is_authenticated or not request.user.is_superuser:
+        return HttpResponseForbidden("You do not have permission to access this page.")
     ai_objects = AI.objects.all()
     return render(request, "admin-index.html", {'ai_objects': ai_objects})
 
@@ -17,6 +21,9 @@ from django.conf import settings
 from authentication.models import AI
 
 def create(request):
+    # 사용자가 슈퍼유저가 아닌 경우 접근 금지 응답 반환
+    if not request.user.is_authenticated or not request.user.is_superuser:
+        return HttpResponseForbidden("You do not have permission to access this page.")
     if request.method == 'POST':
         if request.user.is_authenticated and request.user.is_superuser:
 
