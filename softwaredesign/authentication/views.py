@@ -5,12 +5,11 @@ from django.shortcuts import render
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .forms import SignupForm, LoginForm
-from django.contrib.auth.models import User
+from authentication.models import User
 from django.contrib.auth import logout
 
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
-from django.contrib.auth.models import User
 from social_django.models import UserSocialAuth
 
 def social_login(request):
@@ -54,7 +53,13 @@ def signup(request):
             if not User.objects.filter(email=email).exists():
                 user = User.objects.create_user(username=email, email=email, password=password)
                 messages.success(request, 'Thank you! Your submission has been received!')
-                return redirect('/')  # 성공 시 리다이렉트할 페이지를 설정합니다.
+                user = authenticate(request, username=email, password=password)
+            
+                if user is not None:
+                    # 로그인 처리
+                    auth_login(request, user)
+                    messages.success(request, 'You are now logged in!')
+                    return redirect('/')  # 로그인 후 리다이렉트할 페이지를 설정합니다.
             else:
                 messages.error(request, 'Oops! Something went wrong while submitting the form.')
         else:
