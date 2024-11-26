@@ -71,8 +71,13 @@ if not API_KEY:
 genai.configure(api_key=API_KEY)
 model = genai.GenerativeModel('gemini-pro')
 
-def get_prompt_text():
+def get_prompt_text(ai_object):
     # 파일 경로를 지정 (프로젝트의 static 디렉터리 내)
+    # AI 객체가 제공되면 AI 객체의 prompt를 우선 사용
+
+    if ai_object and ai_object.prompt:
+        return ai_object.prompt
+    
     prompt_file_path = os.path.join('static', 'prompt', 'prompt.txt')
 
     try:
@@ -156,7 +161,7 @@ def chat_api_request(request,message, ainame):
             user_ai.affection += 1  # affection 증가
             user_ai.save()  # 업데이트된 affection을 데이터베이스에 저장
 
-        prompt = get_prompt_text()
+        prompt = get_prompt_text(ai_object)
         prompt = replace_placeholders(prompt, ai_object.personality, 0, ainame, message)
         prompt.replace("{채팅로그}", chat_with_ai(request, ainame))
         result = model.generate_content(prompt)
