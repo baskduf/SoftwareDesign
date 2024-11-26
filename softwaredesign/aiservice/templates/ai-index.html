@@ -4,6 +4,62 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>friendAI</title>
+  <style>
+    .recommend-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: #ff4d4d;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .recommend-button:hover {
+      background-color: #e63946;
+    }
+    .ai-image {
+      width: 100%;
+      max-width: 300px;
+      height: auto;
+      border-radius: 15px;
+      margin-bottom: 20px;
+    }
+    .centered-heading {
+      font-size: 2rem;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    .centered-subheading {
+      font-size: 1rem;
+      margin-bottom: 20px;
+      color: #666;
+    }
+    .description {
+      margin-top: 20px;
+      font-size: 1.1rem;
+      color: #444;
+    }
+    .button-primary {
+      margin-top: 30px;
+      padding: 15px 30px;
+      background-color: black;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .button-primary:hover {
+      background-color: #333;
+    }
+  </style>
+  
   <!-- static 태그 로드 -->
   {% load static %}
   <style>.wf-force-outline-none[tabindex="-1"]:focus{outline:none;}</style>
@@ -78,12 +134,16 @@
     <div class="container-2">
       <h2 class="centered-heading">{{ ai.ainame }}</h2>
       <p class="centered-subheading">당신이 선택한 AI</p>
-      <p>추천 수: {{ ai.recommend_count }}</p>
+      {% comment %} <p>추천 수: {{ ai.recommend_count }}</p> {% endcomment %}
 
       <form action="{% url 'recommend_ai' ai.ainame %}" method="post">
         {% csrf_token %}
-        <button type="submit">추천하기</button>
+        <button type="submit" class="recommend-button">
+          <span>👍 추천하기</span>
+          <span class="recommend-count">{{ ai.recommend_count }}</span>
+        </button>
       </form>
+      
 
       <div class="team-slider-wrapper w-slider">
         <div class="w-slider-mask" id="w-slider-mask-0">
