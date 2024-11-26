@@ -186,3 +186,4 @@ def recommend_ai(request, ainame):
     ai = get_object_or_404(AI, ainame=ainame)
     ai.recommend()  # 추천 횟수 증가
     return redirect(reverse('ai_index', args=[ainame]))
+
