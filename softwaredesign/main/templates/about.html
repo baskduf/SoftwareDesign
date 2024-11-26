@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <script src="https://cdn.jsdelivr.net/npm/showdown/dist/showdown.min.js"></script>
     {% load static %}
     <!-- Django 템플릿 태그로 정적 파일을 불러옴 -->
     <title>friendAI</title>
@@ -111,10 +113,31 @@
 
     <section class="team-slider" style="border-radius: 20px;">
       <div class="container-2" style="border-radius: 20px;">
-        <h2 class="centered-heading" style="margin-top: 3px;">HOW TO DO?</h2>
+        <h2 class="centered-heading" style="margin-top: 3px;">어떤 홈페이지 인가요?</h2>
         <p class="centered-subheading" style="margin-top: 5px;">
-          어떤 홈페이지 인가요?
+
         </p>
+        <!-- 내용 -->
+        <section id="readme-content">
+          <!-- README 파일 내용이 여기에 HTML로 변환되어 로드됩니다 -->
+      </section>
+  
+      <script>
+          // README.md 파일을 불러와서 마크다운을 HTML로 변환하는 함수
+          fetch('../../../../README.md')
+              .then(response => response.text())
+              .then(markdown => {
+                  // Showdown으로 마크다운을 HTML로 변환
+                  const converter = new showdown.Converter();
+                  const html = converter.makeHtml(markdown);
+                  
+                  // 변환된 HTML을 section에 삽입
+                  document.getElementById('readme-content').innerHTML = html;
+              })
+              .catch(error => console.error('README 파일을 불러오는 중 오류 발생:', error));
+      </script>
+      
+         
         <hr>
       </div>
     </section>

@@ -16,11 +16,22 @@ CSRF_COOKIE_NAME = 'csrftoken'
 CSRF_HEADER_NAME = 'X-CSRFToken'
 
 
+
 # settings.py
 AUTH_USER_MODEL = 'authentication.User'
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+import os
+
+# Static files (CSS, JavaScript, images)
+STATIC_URL = '/static/'
+
+# Collect static files into this directory
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 
 # Quick-start development settings - unsuitable for production
