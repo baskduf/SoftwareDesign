@@ -117,30 +117,6 @@
         <p class="centered-subheading" style="margin-top: 5px;">
 
         </p>
-<<<<<<< HEAD
-        <!-- 내용 -->
-        <section id="readme-content">
-          <!-- README 파일 내용이 여기에 HTML로 변환되어 로드됩니다 -->
-      </section>
-  
-      <script>
-          // README.md 파일을 불러와서 마크다운을 HTML로 변환하는 함수
-          fetch('../../../../README.md')
-              .then(response => response.text())
-              .then(markdown => {
-                  // Showdown으로 마크다운을 HTML로 변환
-                  const converter = new showdown.Converter();
-                  const html = converter.makeHtml(markdown);
-                  
-                  // 변환된 HTML을 section에 삽입
-                  document.getElementById('readme-content').innerHTML = html;
-              })
-              .catch(error => console.error('README 파일을 불러오는 중 오류 발생:', error));
-      </script>
-      
-         
-        <hr>
-=======
         <hr style="border: 1px solid #3498db; margin: 30px auto;">
         <p class="centered-subheading" style="font-size: 1.2rem; color: #666; margin-bottom: 30px; line-height: 1.6;">
           친구를 만들고, 인공지능(AI)과 대화하면서 다양한 경험을 쌓을 수 있는 플랫폼입니다. 
@@ -167,7 +143,6 @@
             </p>
           </li>
         </ul>
->>>>>>> 262143798422b5c961a535cfe20068fd51605824
       </div>
     </section>
 

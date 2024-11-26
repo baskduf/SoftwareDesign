@@ -144,6 +144,13 @@
         </button>
       </form>
       
+      <form action="{% url 'recommend_ai' ai.ainame %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="recommend-button">
+          <span>👍 추천하기</span>
+          <span class="recommend-count">{{ ai.recommend_count }}</span>
+        </button>
+      </form>
 
       <div class="team-slider-wrapper w-slider">
         <div class="w-slider-mask" id="w-slider-mask-0">
