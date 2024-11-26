@@ -31,3 +31,5 @@ class AI(models.Model):
     
     def get_image_url(self):
         return f'/static/img/{self.ainame}.jfif'  # 파일 확장자가 jfif 가정
+    
+    
