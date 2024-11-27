@@ -5,3 +5,4 @@ pip install google-generativeai
 pip install django-environ
 pip install python-dotenv
 pip install social-auth-app-django
+pip install pillow

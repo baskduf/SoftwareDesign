@@ -62,38 +62,7 @@ Google의 AI API와 통신하기 위해 **API 키**가 필요해요. 아래 링�
 API_KEY="your_google_api_key_here"
 ```
 
-> **TIP:** 경로는 `aiservice/views.py` 파일에서 이렇게 지정하면 됩니다:
-
-```python
-from dotenv import load_dotenv
-import os
-
-load_dotenv(dotenv_path='C:/Users/my/Desktop/SoftwareDesign/.env')
-```
-
----
-
-### 📊 5단계: 데이터베이스 마이그레이션
-
-```bash
-python manage.py migrate
-```
-
-> **다 했으면...** 이제 데이터베이스가 준비되었습니다! 
-
----
-
-### 🔓 6단계: 슈퍼유저 만들기
-
-관리자 페이지에서 자유롭게 설정할 수 있도록 **슈퍼유저 계정**을 만들어 보세요!
-
-```bash
-python manage.py createsuperuser
-```
-
----
-
-### 🚀 7단계: 개발 서버 시작하기
+### 🚀 5단계: 개발 서버 시작하기
 
 드디어! 서버를 실행하고 로컬 환경에서 웹 애플리케이션을 확인해 볼 시간입니다.
 
