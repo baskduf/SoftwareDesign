@@ -81,7 +81,7 @@ def get_prompt_text(ai_object):
     # 파일 경로를 지정 (프로젝트의 static 디렉터리 내)
     # AI 객체가 제공되면 AI 객체의 prompt를 우선 사용
 
-    if ai_object and ai_object.prompt:
+    if ai_object and ai_object.prompt:         
         return ai_object.prompt
     
     prompt_file_path = os.path.join('static', 'prompt', 'prompt.txt')
@@ -170,7 +170,9 @@ def chat_api_request(request,message, ainame):
         prompt = get_prompt_text(ai_object)
         prompt = replace_placeholders(prompt, ai_object.personality, 0, ainame, message)
         prompt.replace("{채팅로그}", chat_with_ai(request, ainame))
+        print(prompt)
         result = model.generate_content(prompt)
+        
 
         return {'result': result.text, 'affection': user_ai.affection}
     except Exception as e:
