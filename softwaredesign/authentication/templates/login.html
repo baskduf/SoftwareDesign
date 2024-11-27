@@ -12,16 +12,7 @@
     <meta content="Signup" property="twitter:title">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="Webflow">
-    <script>
-      // 페이지 로드 후 Django에서 전달한 메시지를 JavaScript로 읽어서 alert을 표시
-      document.addEventListener('DOMContentLoaded', function() {
-    {% if messages %}
-        {% for message in messages %}
-            alert("{{ message }}");  // alert로 메시지 표시
-        {% endfor %}
-    {% endif %}
-});
-</script>
+
     <!-- Stylesheets -->
     <link href="https://cdn.prod.website-files.com/66e51a8bf5d1242ba172c682/css/friendai.webflow.95ca5610a.css" rel="stylesheet" type="text/css">
 

@@ -146,21 +146,32 @@
     
     <div class="action-buttons">
       <!-- 구독하기 버튼 -->
-      <form action="/subscribe/" method="post">
-        {% csrf_token %}
-        <button type="submit" class="subscribe-button">
-          <img src="/static/img/subscribe-icon.png" alt="구독 아이콘" style="width: 20px; height: 20px;">
-          <span>구독하기</span>
-        </button>
-      </form>
+      {% if user.is_authenticated %}
+  {% if userai.subscribed %}
+    <form action="{% url 'unsubscribe' ai.ainame %}" method="post">
+      {% csrf_token %}
+      <button type="submit" class="subscribe-button">
+        <span>⭐️ 구독취소</span>
+      </button>
+    </form>
+  {% else %}
+    <form action="{% url 'subscribe' ai.ainame %}" method="post">
+      {% csrf_token %}
+      <button type="submit" class="subscribe-button">
+        <span>⭐️ 구독하기</span>
+      </button>
+    </form>
+  {% endif %}
+  <form action="{% url 'recommend_ai' ai.ainame %}" method="post">
+    {% csrf_token %}
+    <button type="submit" class="recommend-button">
+      <span>👍 추천하기</span>
+      <span class="recommend-count">{{ ai.recommend_count }}</span>
+    </button>
+  </form>
+{% endif %}
     
-      <form action="{% url 'recommend_ai' ai.ainame %}" method="post">
-        {% csrf_token %}
-        <button type="submit" class="recommend-button">
-          <span>👍 추천하기</span>
-          <span class="recommend-count">{{ ai.recommend_count }}</span>
-        </button>
-      </form>
+      
 
     </div>
     

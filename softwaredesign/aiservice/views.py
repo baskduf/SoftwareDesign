@@ -1,13 +1,19 @@
 from django.shortcuts import render, get_object_or_404
 
 from .models import AI
+from authentication.models import UserAI
 
 def index(request, ainame):
+    if not request.user.is_authenticated:
+        return redirect('login')  # 로그인 페이지로 리다이렉트하거나 오류 페이지로 이동
+    
     ai = get_object_or_404(AI, ainame=ainame)
     image_url = ai.get_image_url()  # 이미지 경로 생성
+    userai = get_or_create_user_ai(request, ai_name=ainame)
 
     return render(request, 'ai-index.html', {
         'ai': ai,
+        'userai':userai,
         'image_url': image_url  # 이미지 경로 템플릿에 전달
     })
 
@@ -199,4 +205,24 @@ def recommend_ai(request, ainame):
     ai = get_object_or_404(AI, ainame=ainame)
     ai.recommend()  # 추천 횟수 증가
     return redirect(reverse('ai_index', args=[ainame]))
+
+
+from django.shortcuts import get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from .models import AI
+
+@login_required
+def subscribe(request, ainame):
+    ai = get_object_or_404(AI, ainame=ainame)
+    
+    user_ai = get_or_create_user_ai(request, ai_name=ainame)
+    user_ai.subscribe()
+    return redirect(reverse('ai_index', args=[ainame]))  # 구독 후 이동할 페이지
+
+@login_required
+def unsubscribe(request, ainame):
+    ai = get_object_or_404(AI, ainame=ainame)
+    user_ai = get_or_create_user_ai(request, ai_name=ainame)
+    user_ai.unsubscribe()
+    return redirect(reverse('ai_index', args=[ainame]))  # 구독 후 이동할 페이지
 

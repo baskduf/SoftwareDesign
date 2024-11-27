@@ -161,6 +161,99 @@
       </div>
     </div>
 
+    {% if user.is_authenticated %}
+    <!-- 팀 슬라이더 섹션 (AI 선택 부분) -->
+    <section class="team-slider" style="border-radius: 20px;">
+      <div class="container-2" style="border-radius: 20px;">
+        <h2 class="centered-heading" style="margin-top: 3px;">내가 구독한 AI</h2>
+        <p class="centered-subheading" style="margin-top: 5px;">
+          자신이 구독한 AI와 채팅해보세요.
+        </p>
+        <div class="team-slider-wrapper w-slider">
+          <div class="w-slider-mask" id="w-slider-mask-0">
+            <!-- Django 백엔드에서 전달받은 AI 객체들을 반복해서 출력 -->
+            
+
+            {% for ai in subscribed_ais %}
+            <div class="team-slide-wrapper w-slide">
+              <div
+                class="team-block"
+                style="border-radius:20px; overflow: hidden;"
+              >
+                <!-- AI 이미지 동적으로 출력 -->
+                <a
+                  href="/service/{{ai.ainame}}"
+                  class="team-block-link"
+                  style="text-decoration: none; color: black;"
+                >
+                  <div
+                    class="team-block"
+                    style="height: 500px; border-radius: 30px; overflow: hidden;"
+                  >
+                    <!-- AI 이미지 동적으로 출력 -->
+                    <img
+                      src="{% static 'img/' %}{{ ai.ainame }}.jfif"
+                      alt="{{ ai.ainame }}"
+                      style="width: 100%; height: 300px; object-fit: cover; padding: 15px; border-radius: 30px;"
+                    />
+                    <div class="team-block-info">
+                      <h3 class="team-member-name-two">{{ ai.ainame }}</h3>
+                      <p class="team-member-text">{{ ai.description }}</p>
+                      <!-- 화살표 아이콘 -->
+                      <div class="arrow-embed w-embed">
+                        <svg
+                          width="20"
+                          height="20"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            clip-rule="evenodd"
+                            d="M11.72 15L16.3472 10.357C16.7732 9.92932 16.7732 9.23603 16.3472 8.80962L11.72 4.16667L10.1776 5.71508L12.9425 8.4889H4.16669V10.6774H12.9425L10.1776 13.4522L11.72 15Z"
+                            fill="currentColor"
+                          ></path>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+
+                <!-- AI 특징을 설명하는 오버레이 섹션 추가 -->
+                <div class="ai-description-overlay">
+                  <p>{{ ai.features }}</p>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+
+          <!-- 슬라이더 내비게이션 컨트롤 -->
+          <div
+            class="team-slider-arrow w-slider-arrow-left"
+            role="button"
+            tabindex="0"
+            aria-label="previous slide"
+          >
+            <div class="w-icon-slider-left"></div>
+          </div>
+          <div
+            class="team-slider-arrow w-slider-arrow-right"
+            role="button"
+            tabindex="0"
+            aria-label="next slide"
+          >
+            <div class="w-icon-slider-right"></div>
+          </div>
+          <div class="team-slider-nav w-slider-nav w-slider-nav-invert w-round">
+            <div class="w-slider-dot w-active"></div>
+            <div class="w-slider-dot"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    {% endif %}
+
     <!-- 팀 슬라이더 섹션 (AI 선택 부분) -->
     <section class="team-slider" style="border-radius: 20px;">
       <div class="container-2" style="border-radius: 20px;">

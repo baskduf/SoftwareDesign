@@ -23,5 +23,9 @@ urlpatterns = [
     path('api/<str:ainame>/', views.chat_api_view, name='chat_api'),
     path('<str:ainame>/', views.index, name='ai_index'),
     path('<str:ainame>/chat/', views.chat, name='ai_chat'),
+    
     path('<str:ainame>/recommend/', views.recommend_ai, name='recommend_ai'),
+    
+    path('<str:ainame>/subscribe/', views.subscribe, name='subscribe'),
+    path('<str:ainame>/unsubscribe/', views.unsubscribe, name='unsubscribe'),
 ]
