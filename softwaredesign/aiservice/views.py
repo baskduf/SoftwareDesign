@@ -1,14 +1,18 @@
 from django.shortcuts import render, get_object_or_404
 
 from .models import AI
+
 from authentication.models import UserAI
+from authentication.models import User
 
 def index(request, ainame):
     if not request.user.is_authenticated:
         return redirect('login')  # 로그인 페이지로 리다이렉트하거나 오류 페이지로 이동
-    
+    user = User.objects.get(username=request.user.username)  # 사용자 가져오기
     ai = get_object_or_404(AI, ainame=ainame)
     image_url = ai.get_image_url()  # 이미지 경로 생성
+
+    add_ai_to_user(user, ai)
     userai = get_or_create_user_ai(request, ai_name=ainame)
 
     return render(request, 'ai-index.html', {
