@@ -5,113 +5,67 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>friendAI</title>
   <style>
-    .action-buttons {
-      display: flex; /* 버튼들을 수평으로 정렬 */
-      justify-content: space-between; /* 버튼 간에 여백을 자동 분배 */
-      align-items: center; /* 버튼들을 세로로 중앙 정렬 */
-      gap: 10px; /* 버튼 간 간격 */
-      margin: 0; /* 위, 아래, 좌우 여백을 0으로 설정 */
-      padding: 0; /* 내부 여백도 0으로 설정 */
-    }
-    
-    .subscribe-button {
-      position: absolute;
-      top: 20px;
-      left: 20px; /* 위치를 추천하기 버튼과 반대쪽에 배치 */
-      background-color: #4caf50; /* 초록색 */
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    
-    .subscribe-button:hover {
-      background-color: #e63946; /* hover 시 약간 어두운 빨간색 */
-    }
-    
-    .subscribe-button:hover {
-      background-color: #45a049; /* hover 시 초록색 */
-    }
-    .container-2 {
-      margin: 0; /* 섹션의 바깥 여백 제거 */
-      padding: 0; /* 섹션의 내부 여백 제거 */
-    }
-    
-    .subscribe-button,
-    .recommend-button {
-      margin: 0; /* 버튼의 여백 제거 */
-      padding: 10px 20px; /* 버튼 자체의 여백만 유지 */
-    }
-    
-    .recommend-button {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background-color: #ff4d4d;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 10px;
-      cursor: pointer;
-      font-weight: bold;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-    
-    .recommend-button:hover {
-      background-color: #e63946; /* hover 시 더 어두운 빨간색 */
-    }
-    
-    /* 스타일 예시 */
-.submit-review-button {
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.submit-review-button:hover {
-  background-color: #45a049;
-}
-
-.review-form-section {
-  padding: 20px;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  width: 80%;
-  margin: 0 auto;
-}
-
-.Review-Create-button {
-  text-decoration: none;
-  color: #fff;
-}
-
-.reviews-list {
-  margin-top: 20px;
-}
-
-.review {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-}
-
-.review strong {
-  font-weight: bold;
-}
-
-.review p {
-  margin: 5px 0;
-}
+    .reviews-title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 10px;
+        text-align: center;
+      }
+      
+      /* 각 리뷰 상자 */
+      .review-box {
+        background-color: #f9f9f9; /* 상자의 배경 색상 */
+        border: 1px solid #ddd; /* 상자 테두리 */
+        border-radius: 8px; /* 모서리 둥글기 */
+        padding: 20px; /* 상자 내 여백 */
+        margin-bottom: 20px; /* 상자들 간의 여백 */
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* 상자에 그림자 */
+        transition: transform 0.3s ease, box-shadow 0.3s ease; /* 마우스 오버시 상자 움직임 */
+      }
+      
+      .review-box:hover {
+        transform: translateY(-5px); /* 마우스를 올리면 상자가 살짝 떠오르는 효과 */
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* 그림자 효과 */
+      }
+      
+      /* 리뷰 헤더 (작성자와 날짜) */
+      .review-header {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 10px;
+      }
+      
+      .review-author {
+        font-weight: bold;
+        color: #333;
+      }
+      
+      .review-date {
+        font-style: italic;
+        color: #777;
+      }
+      
+      /* 리뷰 내용 */
+      .review-content {
+        font-size: 16px;
+        line-height: 1.6;
+        color: #333;
+      }
+      
+      /* 리뷰가 없을 경우 표시 */
+      .reviews-list p {
+        font-size: 16px;
+        color: #888;
+        text-align: center;
+        padding: 20px;
+        background-color: #f1f1f1;
+        border-radius: 8px;
+      }   
     
   </style>
   
@@ -183,58 +137,27 @@
       </div>
     </div>
   
-
-  <!-- Team Slider Section -->
-  <section class="team-slider" style="border-radius: 20px;">
-    
-    <div class="action-buttons">
-      <!-- 구독하기 버튼 -->
-      {% if user.is_authenticated %}
-  {% if userai.subscribed %}
-    <form action="{% url 'unsubscribe' ai.ainame %}" method="post">
-      {% csrf_token %}
-      <button type="submit" class="subscribe-button">
-        <span>⭐️ 구독취소</span>
-      </button>
-    </form>
-  {% else %}
-    <form action="{% url 'subscribe' ai.ainame %}" method="post">
-      {% csrf_token %}
-      <button type="submit" class="subscribe-button">
-        <span>⭐️ 구독하기</span>
-      </button>
-    </form>
-  {% endif %}
-  <form action="{% url 'recommend_ai' ai.ainame %}" method="post">
-    {% csrf_token %}
-    <button type="submit" class="recommend-button">
-      <span>👍 추천하기</span>
-      <span class="recommend-count">{{ ai.recommend_count }}</span>
-    </button>
-  </form>
-
-  <!-- 리뷰 작성 버튼 -->
-  <a href="{% url 'Review_Create' ai.ainame %}" class="Review-Create-button">
-    <button type="button" class="submit-review-button">리뷰 작성</button>
-  </a>
-
-{% endif %}
-    </div>
-
-  
-    
-    <div class="container-2">
-      <h2 class="centered-heading">{{ ai.ainame }}</h2>
-      <p class="centered-subheading">당신이 선택한 AI</p>
-      <div class="team-slider-wrapper w-slider">
-        <div class="w-slider-mask" id="w-slider-mask-0">
-          <img src="{{ image_url }}" alt="{{ ai.ainame }}의 이미지" style="width: 300px; height: 300px;"><br><br>
-          <h2>새로운 추억을 만들어 보세요.</h2>
-          <p>{{ ai.description }}</p><br>
-        <a href="/service/{{ai.ainame}}/chat/" class="button-primary w-button" style="border-radius: 10px;">Start Chat</a>
-      </div>
-    </div>
-  </section>
+    <div class="reviews-list">
+      <h3 class="reviews-title">"{{ ai.ainame }}"에 대한 리뷰</h3>
+      
+      {% for review in reviews %}
+        <div class="review-box">
+          <div class="review-header">
+            <span class="review-author">{{ review.user.username }}</span>
+            <span class="review-date">{{ review.created_at|date:"Y년 m월 d일 H:i" }}</span>
+          </div>
+          <p class="review-content">{{ review.content }}</p>
+          
+          <!-- 리뷰 수정 및 삭제 버튼 -->
+          {% if review.user == request.user or request.user.is_superuser %}
+            <a href="{% url 'Review_Edit' ai.ainame review.id %}" class="button-primary w-button">수정</a>
+            <a href="{% url 'Review_Delete' ai.ainame review.id %}" class="button-danger w-button" onclick="return confirm('정말로 이 리뷰를 삭제하시겠습니까?');">삭제</a>
+          {% endif %}
+        </div>
+      {% empty %}
+        <p>아직 리뷰가 없습니다.</p>
+      {% endfor %}
+  </div>
 
   <!-- Footer Section -->
   <section class="footer-subscribe">
