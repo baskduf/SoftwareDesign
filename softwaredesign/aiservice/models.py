@@ -32,4 +32,14 @@ class AI(models.Model):
     def get_image_url(self):
         return f'/static/img/{self.ainame}.jfif'  # 파일 확장자가 jfif 가정
     
-    
+from django.conf import settings
+from django.db import models
+
+class Review(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)  # Custom user 모델 사용
+    ai = models.ForeignKey(AI, on_delete=models.CASCADE)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Review by {self.user.username} on {self.ai.ainame}'

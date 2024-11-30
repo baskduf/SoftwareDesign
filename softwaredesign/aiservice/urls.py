@@ -28,4 +28,9 @@ urlpatterns = [
     
     path('<str:ainame>/subscribe/', views.subscribe, name='subscribe'),
     path('<str:ainame>/unsubscribe/', views.unsubscribe, name='unsubscribe'),
+
+    path('<str:ainame>/Review_View/', views.Review_View, name='Review_View'),  # AI 세부 페이지 URL
+    path('<str:ainame>/Review_Create/', views.Review_Create, name='Review_Create'),  # 리뷰 작성 페이지 URL
+    path('<str:ainame>/Review_Edit/<int:review_id>/', views.Review_Edit, name='Review_Edit'),  # 리뷰 수정 URL
+    path('<str:ainame>/Review_Delete/<int:review_id>/', views.Review_Delete, name='Review_Delete'),  # 리뷰 삭제 URL
 ]

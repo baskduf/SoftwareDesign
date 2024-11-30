@@ -232,3 +232,64 @@ def unsubscribe(request, ainame):
     user_ai.unsubscribe()
     return redirect(reverse('ai_index', args=[ainame]))  # 구독 후 이동할 페이지
 
+from django.shortcuts import render, redirect
+from .models import AI, Review
+from .forms import ReviewForm
+
+def Review_View(request, ainame):
+    ai = AI.objects.get(ainame=ainame)  # 특정 AI 객체 가져오기
+    reviews = Review.objects.filter(ai=ai)  # 해당 AI에 대한 모든 리뷰 가져오기
+    
+    return render(request, 'Review_View.html', {'ai': ai, 'reviews': reviews})
+
+def Review_Create(request, ainame):
+    ai = AI.objects.get(ainame=ainame)  # 특정 AI 객체 가져오기
+    
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            review = form.save(commit=False)  # 폼을 저장하지만 즉시 DB에 커밋하지 않음
+            review.user = request.user  # 현재 로그인한 사용자로 설정
+            review.ai = ai  # 해당 AI와 관련된 리뷰로 설정
+            review.save()  # 리뷰 저장
+            
+            # 리뷰 작성 후 AI 세부 페이지로 리다이렉트
+            return redirect('Review_View', ainame=ai.ainame)  # AI 세부 페이지로 리다이렉트
+    else:
+        form = ReviewForm()
+
+    return render(request, 'Review_Create.html', {'form': form, 'ai': ai})
+
+# 리뷰 수정 페이지
+def Review_Edit(request, ainame, review_id):
+    ai = AI.objects.get(ainame=ainame)  # 특정 AI 객체 가져오기
+    review = get_object_or_404(Review, id=review_id)  # 특정 리뷰 객체 가져오기
+
+    # 현재 사용자와 리뷰 작성자가 일치하는지 확인 (선택적)
+    if request.user != review.user:
+        return redirect('Review_View', ainame=ai.ainame)  # 권한 없으면 리뷰 페이지로 리다이렉트
+
+    if request.method == 'POST':
+        form = ReviewForm(request.POST, instance=review)  # 기존 리뷰 인스턴스로 초기화
+        if form.is_valid():
+            form.save()  # 동일한 리뷰 인스턴스 업데이트
+            return redirect('Review_View', ainame=ai.ainame)  # AI 세부 페이지로 리다이렉트
+    else:
+        form = ReviewForm(instance=review)  # GET 요청 시 기존 리뷰 데이터를 폼에 채움
+
+    return render(request, 'Review_Create.html', {
+        'form': form, 
+        'ai': ai, 
+        'review': review, 
+        'edit_mode': True
+    })
+# 리뷰 삭제 기능
+def Review_Delete(request, ainame, review_id):
+    ai = AI.objects.get(ainame=ainame)  # 특정 AI 객체 가져오기
+    review = get_object_or_404(Review, id=review_id)  # 특정 리뷰 객체 가져오기
+
+    # 리뷰 삭제
+    review.delete()
+
+    # 삭제 후 AI 세부 페이지로 리다이렉트
+    return redirect('Review_View', ainame=ai.ainame)
